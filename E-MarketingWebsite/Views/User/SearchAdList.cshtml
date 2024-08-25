@@ -1,0 +1,100 @@
+﻿
+@model IEnumerable<E_MarketingWebsite.Models.tbl_product>
+    @{
+        ViewBag.Title = "View Ads";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>@ViewBag.Title</title>
+            <!-- Bootstrap CSS -->
+            <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+            <!-- Custom CSS -->
+            <style>
+                .category-grid {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 1rem; /* Adjust the horizontal and vertical spacing */
+                }
+
+                .category-item {
+                    background: #fff;
+                    padding: 1rem;
+                    border-radius: 8px;
+                    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                    text-align: center;
+                    width: calc(25% - 1rem); /* Adjust width as needed */
+                    margin-bottom: 1rem; /* Add margin-bottom to create space between rows */
+                }
+
+                    .category-item img {
+                        max-width: 100%;
+                        height: auto;
+                        border-radius: 8px;
+                    }
+
+                .btn-delete {
+                    background-color: #dc3545;
+                    border: none;
+                    color: #fff;
+                    cursor: pointer;
+                    padding: 0.5rem 1rem;
+                    border-radius: 5px;
+                }
+
+                    .btn-delete:hover {
+                        background-color: #c82333;
+                    }
+
+                .float-right {
+                    float: right;
+                    margin-right: 40px;
+                    height: 10px;
+                }
+            </style>
+            <script>
+        document.getElementById('SearchAd').addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevents the default form submission behavior
+            document.getElementById('searchForm').submit(); // Submits the form
+        }
+    });
+            </script>
+        </head>
+        <body>
+            @using (Html.BeginForm("SearchAd", "User", FormMethod.Post))
+            {
+
+                <div class="float-right">
+
+                    @Html.TextBox("searchQuery", null, new { @class = "form-control", placeholder = "Search" })
+
+                </div>
+
+
+            }
+
+
+            <div class="container mt-4">
+                <h2 class="text-center mb-4">@ViewBag.Title</h2>
+                <p>@TempData["msg"]</p>
+                <div class="category-grid">
+                    @foreach (var product in Model)
+            {
+                        <div class="category-item">
+                            <h4>@product.pro_name</h4>
+                            <img src="@Url.Content(product.pro_image)" alt="@product.pro_name" style="height:70%; width:100%; border-radius:50px" />
+                            <br />
+                            <br />
+                            <h4>Rs:@product.pro_price</h4>
+                            <p>Description : @product.pro_des</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </body>
+    </html>

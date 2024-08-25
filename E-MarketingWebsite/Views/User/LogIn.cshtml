@@ -1,0 +1,121 @@
+﻿@model E_MarketingWebsite.Models.tbl_user
+@{
+    ViewBag.Title = "User LogIn";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* Optional: Hides scrollbars if not needed */
+        }
+
+        body {
+            background-image: url('@Url.Content("~/Content/upload/LogIn.jpg")'); /* Update path as needed */
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-form {
+            background: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+            margin: 0 1rem; /* Optional: Adds some margin */
+        }
+
+        .login-form h2 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .form-group i {
+            position: absolute;
+            top: 50%;
+            left: 0.75rem;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+
+        .form-control {
+            padding-left: 2.5rem;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #007bff;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .text-danger {
+            display: block;
+        }
+
+        .register-link {
+            display: block;
+            text-align: right;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-form">
+        <h2 class="text-center">@ViewBag.Title</h2>
+
+        @using (Html.BeginForm("LogIn", "User", FormMethod.Post))
+        {
+            <div class="form-group">
+                <i class="fas fa-user"></i>
+                @Html.TextBoxFor(model => model.u_email, new { @class = "form-control", placeholder = "Email" })
+                @Html.ValidationMessageFor(model => model.u_email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <i class="fas fa-lock"></i>
+                @Html.PasswordFor(model => model.u_password, new { @class = "form-control", placeholder = "Password" })
+                @Html.ValidationMessageFor(model => model.u_password, "", new { @class = "text-danger" })
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Log In</button>
+
+            <p style="color:red">@ViewBag.error</p>
+        }
+
+        <!-- Register Link/Button -->
+        <div class="register-link">
+            If you don't have an account? <a href="@Url.Action("SignUp", "User")">Register</a>
+        </div>
+    </div>
+</body>
+</html>

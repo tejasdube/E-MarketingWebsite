@@ -1,0 +1,100 @@
+﻿@model IEnumerable<E_MarketingWebsite.Models.tbl_category>
+@{
+    ViewBag.Title = "View Categories";
+    Layout = "~/Views/Shared/Admin.cshtml"; // Use your main layout if required
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        .category-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem; /* Adjust the horizontal and vertical spacing */
+        }
+
+        .category-item {
+            background: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+            width: calc(25% - 1rem); /* Adjust width as needed */
+            margin-bottom: 1rem; /* Add margin-bottom to create space between rows */
+        }
+
+        .category-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .button-container {
+            display: flex; /* Use flexbox for horizontal alignment */
+            justify-content: center; /* Center the buttons horizontally */
+            gap: 10px; /* Space between buttons */
+            margin-top: 1rem; /* Add margin-top for spacing from the image */
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        .btn-update {
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .btn-update:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">@ViewBag.Title</h2>
+        <p>@TempData["msg"]</p>
+        <div class="category-grid">
+            @foreach (var category in Model)
+            {
+                <div class="category-item">
+                    <h4>@category.cat_name</h4>
+                    <img src="@Url.Content(category.cat_image)" alt="@category.cat_name" style="height:70%; width:100%; border-radius:50px" />
+                    <div class="button-container">
+                        @using (Html.BeginForm("Delete", "Admin", FormMethod.Post, new { id = category.cat_id }))
+                        {
+                            <input type="hidden" name="id" value="@category.cat_id" />
+                            <button type="submit" class="btn-delete">Delete</button>
+                        }
+                        @using (Html.BeginForm("Update", "Admin", FormMethod.Get, new { id = category.cat_id }))
+                        {
+                            <input type="hidden" name="id" value="@category.cat_id" />
+                            <button type="submit" class="btn-update">Update</button>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard - My ASP.NET Application";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+            .navbar .navbar-brand {
+                font-size: 24px;
+                font-weight: bold;
+                text-decoration: none;
+                color: #fff;
+            }
+
+            .navbar .nav {
+                display: flex;
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            }
+
+                .navbar .nav li {
+                    margin: 0 10px;
+                    position: relative; /* For dropdown positioning */
+                }
+
+                .navbar .nav a {
+                    color: #fff;
+                    text-decoration: none;
+                    padding: 10px 15px;
+                    display: block;
+                }
+
+                    .navbar .nav a:hover {
+                        background-color: #575757;
+                    }
+
+                .navbar .nav.left {
+                    margin-right: auto;
+                }
+
+                .navbar .nav.right {
+                    margin-left: auto;
+                }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #000;
+            border: 1px solid #333;
+            border-radius: 4px;
+            z-index: 1001;
+        }
+
+            .dropdown-menu a {
+                color: #fff;
+                padding: 10px 15px;
+                display: block;
+                text-decoration: none;
+            }
+
+                .dropdown-menu a:hover {
+                    background-color: #575757;
+                }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .body-content {
+            margin-top: 60px; /* Adjust based on navbar height */
+            padding: 20px;
+        }
+
+       
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="@Url.Action("Index", "Admin")" class="navbar-brand">Admin Panel</a>
+        <ul class="nav left">
+            <li><a href="@Url.Action("AdminHome", "Admin")">Dashboard</a></li>
+            <li><a href="@Url.Action("Users", "Admin")">Users</a></li>
+            <li><a href="@Url.Action("ViewCategory", "Admin")">Categories</a></li>
+            
+        </ul>
+       
+    </div>
+    <div class="body-content">
+        @RenderBody()
+        <hr />
+       
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

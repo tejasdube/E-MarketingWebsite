@@ -1,0 +1,77 @@
+﻿@model E_MarketingWebsite.Models.tbl_category
+@{
+    ViewBag.Title = "Update category";
+    Layout = "~/Views/Shared/Admin.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+            .form-container img {
+                height: 20%;
+                width: 30%;
+                border-radius: 50px;
+            }
+    </style>
+</head>
+<body>
+    @if (ViewBag.error != null)
+    {
+        <p style="color:red">@ViewBag.error</p>
+    }
+    else
+    {
+
+
+
+
+
+
+        <div class="container mt-4">
+            <h2 class="text-center mb-4">@ViewBag.Title</h2>
+            <div class="form-container">
+                @using (Html.BeginForm("Update", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <label>Name:</label>
+                        @Html.TextBoxFor(model => model.cat_name, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label>Profile Photo:</label>
+                        <img src="@Url.Content(Model.cat_image)" alt="@Model.cat_image" />
+                        <input type="file" name="file" class="form-control-file" />
+                    </div>
+
+                    
+
+                    <input type="hidden" name="cat_id" value="@Model.cat_id" />
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                }
+
+            </div>
+        </div>
+    }
+</body>
+</html>
